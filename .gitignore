@@ -1,0 +1,24 @@
+# Логи и кэш сервера
+logs/
+*.log
+
+# Скомпилированный геймод
+*.amx
+
+# Конфиги с паролями и секретами
+server.cfg
+mysql.ini
+samp.ban
+
+# Плагины (бинарники)
+plugins/*.dll
+plugins/*.so
+
+# Pawno
+pawno/settings.ini
+
+# Служебные
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
