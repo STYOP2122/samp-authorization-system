@@ -1,26 +1,40 @@
-# SA-MP Portfolio Mod
+# SA-MP Account System
 
-Мод для San Andreas Multiplayer: **регистрация и авторизация** через MySQL (плагин a_mysql).
+Геймод для SA-MP с регистрацией и входом через игровые диалоги. Аккаунты хранятся в MySQL; запросы выполняются асинхронно через плагин a_mysql.
 
-## Содержимое репозитория
+## Возможности
 
-| Путь | Описание |
-|------|----------|
-| `gamemodes/portfolio_rp.pwn` | Исходник геймода (логин/регистрация, диалоги, команды) |
-| `gamemodes/README_portfolio.md` | Подробная инструкция по установке и настройке |
-| `sql/schema.sql` | Схема БД (таблица `accounts`) |
+- Регистрация аккаунта по игровому нику.
+- Вход с проверкой пароля.
+- Хранение SHA256-хеша пароля и соли.
+- Команда `/stats` для просмотра имени и ID аккаунта.
+- Команды `/q` и `/quit` для выхода с сервера.
+
+## Требования
+
+Сервер SA-MP с поддержкой используемых Pawn-функций, компилятор Pawn, include-файлы `a_samp` и `a_mysql`, плагин MySQL R41+ и база MySQL или MariaDB. Подробная инструкция рассчитана на SA-MP 0.3.DL или совместимый сервер.
 
 ## Быстрый старт
 
-1. Импортируй `sql/schema.sql` в MySQL.
-2. В начале `gamemodes/portfolio_rp.pwn` укажи хост, пользователя, пароль и имя БД.
-3. Скомпилируй геймод (нужны инклуды `a_samp` и `a_mysql`).
-4. В `server.cfg`: `gamemode0 portfolio_rp 0` и плагин `mysql`.
+```bash
+git clone https://github.com/STYOP2122/samp-authorization-system.git
+cd samp-authorization-system
+```
 
-Подробности — в [gamemodes/README_portfolio.md](gamemodes/README_portfolio.md).
+1. Импортируйте `sql/schema.sql`: скрипт создаёт базу `portfolio_samp` и таблицу `accounts`.
+2. Укажите параметры подключения в начале `gamemodes/portfolio_rp.pwn`.
+3. Скомпилируйте файл и поместите `portfolio_rp.amx` в папку `gamemodes/` сервера.
+4. Установите плагин MySQL в папку `plugins/` и добавьте в `server.cfg`:
 
-## Технологии
+```ini
+gamemode0 portfolio_rp 0
+plugins mysql
+```
 
-- **Pawn** (SA-MP)
-- **a_mysql** (R41+) — асинхронные запросы
-- **MySQL / MariaDB** — хранение аккаунтов (пароль как SHA256 + соль)
+Подробная настройка и описание таблицы — в [инструкции](gamemodes/README_portfolio.md).
+
+## Файлы
+
+- `gamemodes/portfolio_rp.pwn` — авторизация, регистрация, диалоги и команды.
+- `sql/schema.sql` — схема базы данных.
+- `gamemodes/README_portfolio.md` — инструкция по настройке.
